@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 
 import { AuthProvider } from "./context/AuthContext.jsx";
 
+import "react-quill/dist/quill.snow.css";
 import "./index.css";
 import App from "./App.jsx";
 

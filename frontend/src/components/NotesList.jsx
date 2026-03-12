@@ -40,7 +40,10 @@ function NotesList() {
           >
             <div>
               <h3 className="font-semibold">{note.title}</h3>
-              <p className="text-gray-600">{note.content}</p>
+              <div
+                className="text-gray-600"
+                dangerouslySetInnerHTML={{ __html: note.content }}
+              ></div>
             </div>
 
             <button

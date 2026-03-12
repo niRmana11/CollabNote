@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ReactQuill from "react-quill";
 import { createNote } from "../api/notesApi";
 
 function CreateNote({ refreshNotes }) {
@@ -31,17 +32,19 @@ function CreateNote({ refreshNotes }) {
         required
       />
 
-      <textarea
-        placeholder="Write your note..."
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        className="w-full border p-2 mb-3 rounded"
-        required
-      />
+      <div className="mb-4">
+        <ReactQuill
+          theme="snow"
+          placeholder="Add the note content here..."
+          value={content}
+          onChange={setContent}
+          className="h-20 rounded"
+        />
+      </div>
 
       <button
         type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded"
+        className="bg-blue-600 text-white px-4 py-2 mt-8 rounded"
       >
         Add Note
       </button>
