@@ -2,6 +2,7 @@ import { useState, useCallback, useContext } from "react";
 import axiosClient from "../api/axiosClient";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ function Login() {
 
       login(res.data.user, res.data.token);
 
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Login Failed");
     }
@@ -55,6 +56,13 @@ function Login() {
         >
           Login
         </button>
+
+        <p className="text-center mt-4 text-sm">
+          Don't have an account?{" "}
+          <Link to="/register" className="text-blue-600 font-semibold">
+            Register
+          </Link>
+        </p>
       </form>
     </div>
   );
