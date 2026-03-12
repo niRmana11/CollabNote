@@ -1,11 +1,10 @@
 import * as noteService from "../services/noteService.js";
-import mongoose from "mongoose";
 
 export const createNote = async (req, res, next) => {
   try {
     const note = await noteService.createNote({
       ...req.body,
-      owner: new mongoose.Types.ObjectId(),
+      owner: req.user._id,
     });
     res.status(201).json(note);
   } catch (error) {
@@ -16,7 +15,7 @@ export const createNote = async (req, res, next) => {
 export const getNotes = async (req, res, next) => {
   try {
     const { search } = req.query;
-    const notes = await noteService.getNotes(search);
+    const notes = await noteService.getNotesByUser(req.user._id, search);
     res.json(notes);
   } catch (error) {
     next(error);

@@ -1,7 +1,10 @@
 import express from "express";
 import * as noteController from "../controllers/noteController.js";
+import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
+
+router.use(protect);
 
 router.post("/", noteController.createNote);
 router.get("/", noteController.getNotes);

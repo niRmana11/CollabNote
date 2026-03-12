@@ -4,17 +4,10 @@ export const createNote = async ({ title, content, owner }) => {
   return await Note.create({ title, content, owner });
 };
 
-// for testing in postman
-export const getNotes = async (search) => {
-  const query = search ? { $text: { $search: search } } : {};
-
-  return await Note.find(query);
-};
-
 export const getNotesByUser = async (userId, search = "") => {
   const filter = {
     isDeleted: false,
-    $or: [{ owner: userId }, { collaboraters: userId }],
+    $or: [{ owner: userId }, { collaborators: userId }],
   };
 
   if (search) filter.$text = { $search: search };
