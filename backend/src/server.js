@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import { errorHandler } from "./middleware/errorMiddleware.js";
 import authRoutes from "./routes/authRoutes.js";
+import noteRoutes from "./routes/noteRoutes.js";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(errorHandler);
 
 // routes
 app.use("/api/auth", authRoutes);
+app.use("/api/notes", noteRoutes);
 
 app.get("/", (req, res) => {
   res.send("CollabNote API running");
