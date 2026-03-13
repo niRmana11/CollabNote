@@ -8,6 +8,7 @@ router.use(protect);
 
 router.post("/", noteController.createNote);
 router.get("/", noteController.getNotes);
+router.get("/shared", noteController.getSharedNotes);
 router.get("/:id", noteController.getNote);
 router.put("/:id", noteController.updateNote);
 router.delete("/:id", noteController.deletenote);

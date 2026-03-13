@@ -88,3 +88,18 @@ export const removeCollaborator = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getSharedNotes = async (req, res, next) => {
+  try {
+    const notes = await Note.find({
+      collaborators: req.user._id,
+    })
+      .populate("owner", "name email")
+      .sort({ createdAt: -1 });
+
+    res.json(notes);
+  } catch (error) {
+    console.error("Error fetching shared notes:", error);
+    next(error);
+  }
+};

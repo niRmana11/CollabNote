@@ -27,3 +27,7 @@ export const addCollaborator = (id, data) => {
 export const removeCollaborator = (id, userId) => {
   return axiosClient.delete(`/notes/${id}/collaborators/${userId}`);
 };
+
+export const getSharedNotes = () => {
+  return axiosClient.get("/notes/shared");
+};

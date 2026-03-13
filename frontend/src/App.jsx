@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import EditNote from "./pages/EditNote";
 import Collaborators from "./pages/Collaborators";
+import SharedNotes from "./pages/SharedNotes";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { AuthContext } from "./context/AuthContext";
@@ -37,6 +38,7 @@ function App() {
 
         <Route path="/edit-note/:id" element={<EditNote />} />
         <Route path="/collaborators/:id" element={<Collaborators />} />
+        <Route path="/shared" element={<SharedNotes />} />
       </Routes>
     </BrowserRouter>
   );
