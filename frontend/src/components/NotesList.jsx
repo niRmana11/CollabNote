@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 function NotesList() {
   const [notes, setNotes] = useState([]);
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
   const fetchNotes = async () => {
     try {
-      const res = await getNotes();
+      const res = await getNotes(search);
       setNotes(res.data);
     } catch (err) {
       console.error("Failed to fetch notes");
@@ -30,13 +31,30 @@ function NotesList() {
 
   useEffect(() => {
     fetchNotes();
-  }, []);
+  }, [search]);
 
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">Your Notes</h2>
 
       {notes.length === 0 && <p>No notes yet.</p>}
+
+      <div className="flex mb-4 gap-2">
+        <input
+          type="text"
+          placeholder="Search notes..."
+          className="border p-2 rounded flex-1"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+        <button
+          onClick={fetchNotes}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Search
+        </button>
+      </div>
 
       <div className="space-y-3">
         {notes.map((note) => (

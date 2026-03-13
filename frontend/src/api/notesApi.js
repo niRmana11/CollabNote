@@ -1,7 +1,7 @@
 import axiosClient from "./axiosClient";
 
-export const getNotes = () => {
-  return axiosClient.get("/notes");
+export const getNotes = (search = "") => {
+  return axiosClient.get(`/notes?search=${search}`);
 };
 
 export const createNote = (note) => {

@@ -1,5 +1,6 @@
 import * as noteService from "../services/noteService.js";
 import User from "../models/User.js";
+import Note from "../models/Note.js";
 
 export const createNote = async (req, res, next) => {
   try {
@@ -15,8 +16,22 @@ export const createNote = async (req, res, next) => {
 
 export const getNotes = async (req, res, next) => {
   try {
-    const { search } = req.query;
-    const notes = await noteService.getNotesByUser(req.user._id, search);
+    const search = req.query.search || "";
+
+    const notes = await Note.find({
+      $and: [
+        {
+          $or: [{ owner: req.user._id }, { collaborators: req.user._id }],
+        },
+        {
+          title: { $regex: search, $options: "i" },
+        },
+      ],
+    })
+      .populate("owner", "name email")
+      .populate("collaborators", "name email")
+      .sort({ createdAt: -1 });
+
     res.json(notes);
   } catch (error) {
     next(error);
