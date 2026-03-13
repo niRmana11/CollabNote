@@ -1,4 +1,5 @@
 import * as noteService from "../services/noteService.js";
+import User from "../models/User.js";
 
 export const createNote = async (req, res, next) => {
   try {
@@ -51,10 +52,11 @@ export const deletenote = async (req, res, next) => {
 
 export const addCollaborator = async (req, res, next) => {
   try {
-    const note = await noteService.addCollaborator(
-      req.params.id,
-      req.body.userId,
-    );
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const note = await noteService.addCollaborator(req.params.id, user._id);
     res.json(note);
   } catch (error) {
     next(error);
@@ -65,7 +67,7 @@ export const removeCollaborator = async (req, res, next) => {
   try {
     const note = await noteService.removeCollaborator(
       req.params.id,
-      req.body.userId,
+      req.params.userId,
     );
     res.json(note);
   } catch (error) {

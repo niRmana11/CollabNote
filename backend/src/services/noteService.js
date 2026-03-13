@@ -41,7 +41,9 @@ export const addCollaborator = async (noteId, userId) => {
     noteId,
     { $addToSet: { collaborators: userId } },
     { new: true },
-  );
+  )
+    .populate("owner", "name email")
+    .populate("collaborators", "name email");
 };
 
 export const removeCollaborator = async (noteId, userId) => {

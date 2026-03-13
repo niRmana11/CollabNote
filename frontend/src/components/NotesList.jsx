@@ -72,12 +72,14 @@ function NotesList() {
               >
                 Edit
               </button>
+
               <button
                 onClick={() => navigate(`/collaborators/${note._id}`)}
-                className="px-3 py-1 bg-purple-500 text-white rounded hover:bg-purple-600"
+                className="px-3 py-1 bg-purple-500 text-white rounded"
               >
                 Manage Collaborators
               </button>
+
               <button
                 onClick={() => handleDelete(note._id)}
                 className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"

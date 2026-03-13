@@ -2,6 +2,8 @@ import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import EditNote from "./pages/EditNote";
+import Collaborators from "./pages/Collaborators";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { AuthContext } from "./context/AuthContext";
@@ -32,6 +34,9 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route path="/edit-note/:id" element={<EditNote />} />
+        <Route path="/collaborators/:id" element={<Collaborators />} />
       </Routes>
     </BrowserRouter>
   );

@@ -12,6 +12,6 @@ router.get("/:id", noteController.getNote);
 router.put("/:id", noteController.updateNote);
 router.delete("/:id", noteController.deletenote);
 router.post("/:id/collaborators", noteController.addCollaborator);
-router.delete("/:id/collaborators", noteController.removeCollaborator);
+router.delete("/:id/collaborators/:userId", noteController.removeCollaborator);
 
 export default router;
