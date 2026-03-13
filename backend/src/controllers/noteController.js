@@ -16,18 +16,17 @@ export const createNote = async (req, res, next) => {
 
 export const getNotes = async (req, res, next) => {
   try {
-    const search = req.query.search || "";
+    const search = req.query.search;
 
-    const notes = await Note.find({
-      $and: [
-        {
-          $or: [{ owner: req.user._id }, { collaborators: req.user._id }],
-        },
-        {
-          title: { $regex: search, $options: "i" },
-        },
-      ],
-    })
+    let filter = {
+      $or: [{ owner: req.user._id }, { collaborators: req.user._id }],
+    };
+
+    if (search) {
+      filter.$text = { $search: search };
+    }
+
+    const notes = await Note.find(filter)
       .populate("owner", "name email")
       .populate("collaborators", "name email")
       .sort({ createdAt: -1 });
