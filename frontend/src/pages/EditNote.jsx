@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
+import { ArrowLeft } from "lucide-react";
 import "react-quill/dist/quill.snow.css";
 import { getNoteById, updateNote } from "../api/notesApi";
 
@@ -36,42 +37,47 @@ function EditNote() {
   }, []);
 
   return (
-    <div className="flex justify-center mt-10">
-      <form
-        onSubmit={handleUpdate}
-        className="w-full max-w-3xl bg-white p-6 rounded shadow"
-      >
-        {/* Back button */}
-        <button
-          type="button"
-          onClick={() => navigate("/dashboard")}
-          className="flex items-center gap-1 text-blue-500 hover:text-blue-700 mb-4"
+    <div className="min-h-screen bg-blue-50 px-4 py-10">
+      <div className="flex justify-center mt-10 px-4">
+        <form
+          onSubmit={handleUpdate}
+          className="w-full max-w-3xl bg-white border border-blue-100 p-6 rounded-3xl shadow-sm"
         >
-          ← Back to Dashboard
-        </button>
+          {/* Back button */}
+          <button
+            type="button"
+            onClick={() => navigate("/dashboard")}
+            className="flex items-center gap-1 text-sm text-[#0286c3] font-medium hover:text-[#034f72] mb-5 transition-colors duration-150"
+          >
+            <ArrowLeft size={16} />
+            Back to Dashboard
+          </button>
 
-        <h2 className="text-xl font-bold mb-4">Edit Note</h2>
+          <h2 className="text-xl font-bold mb-4">Edit Note</h2>
 
-        <input
-          type="text"
-          className="w-full border p-2 mb-4 rounded"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+          <input
+            type="text"
+            className="w-full border border-blue-200 bg-blue-50 p-2 px-4 mb-4 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
 
-        <ReactQuill
-          value={content}
-          onChange={setContent}
-          className="mb-4 h-36"
-        />
+          <div className="rounded-2xl overflow-hidden border border-blue-200 mb-10">
+            <ReactQuill
+              value={content}
+              onChange={setContent}
+              className="h-36 text-sm"
+            />
+          </div>
 
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 mt-9 rounded"
-        >
-          Update Note
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="bg-[#15a8ed] text-white text-sm font-semibold px-5 py-2 rounded-2xl hover:bg-[#0484c0] transition-colors duration-150"
+          >
+            Update Note
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import {
   getNoteById,
   addCollaborator,
@@ -45,54 +46,64 @@ function Collaborators() {
     fetchNote();
   }, []);
 
-  if (!note) return <p>Loading...</p>;
+  if (!note)
+    return (
+      <p className="text-center mt-10 text-sm text-gray-400">Loading...</p>
+    );
 
   return (
-    <div className="max-w-xl mx-auto mt-10 bg-white p-6 rounded shadow">
-      {/* Back button */}
-      <button
-        onClick={() => navigate("/dashboard")}
-        className="flex items-center gap-1 text-blue-500 hover:text-blue-700 mb-4"
-      >
-        ← Back to Dashboard
-      </button>
-
-      <h2 className="text-xl font-bold mb-4">Manage Collaborators</h2>
-
-      {/* Add collaborator */}
-      <div className="flex gap-2 mb-4">
-        <input
-          type="email"
-          placeholder="User Email"
-          className="border p-2 flex-1 rounded"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <button
-          onClick={handleAdd}
-          className="bg-green-500 text-white px-4 py-2 rounded"
-        >
-          Add
-        </button>
-      </div>
-
-      {/* Collaborator list */}
-      <ul className="space-y-2">
-        {note.collaborators.map((user) => (
-          <li
-            key={user._id}
-            className="flex justify-between items-center border p-2 rounded"
+    <div className="min-h-screen bg-blue-50 px-4 py-10">
+      <div className="flex justify-center mt-10 px-4">
+        <div className="w-full max-w-xl bg-white border border-blue-100 p-6 rounded-3xl shadow-sm">
+          {/* Back button */}
+          <button
+            onClick={() => navigate("/dashboard")}
+            className="flex items-center gap-1 text-sm text-[#0286c3] font-medium hover:text-[#034f72] mb-5 transition-colors duration-150"
           >
-            <span>{user.name}</span>
+            <ArrowLeft size={16} />
+            Back to Dashboard
+          </button>
+
+          <h2 className="text-xl font-bold mb-4">Manage Collaborators</h2>
+
+          {/* Add collaborator */}
+          <div className="flex gap-2 mb-4">
+            <input
+              type="email"
+              placeholder="User Email"
+              className="border border-blue-200 bg-blue-50 p-2 px-4 flex-1 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
             <button
-              onClick={() => handleRemove(user._id)}
-              className="text-red-500"
+              onClick={handleAdd}
+              className="bg-[#15a8ed] text-white text-sm font-semibold px-5 py-2 rounded-2xl hover:bg-[#0484c0] transition-colors duration-150"
             >
-              Remove
+              Add
             </button>
-          </li>
-        ))}
-      </ul>
+          </div>
+
+          {/* Collaborator list */}
+          <ul className="space-y-2">
+            {note.collaborators.map((user) => (
+              <li
+                key={user._id}
+                className="flex justify-between items-center border border-blue-100 bg-blue-50 px-4 py-2 rounded-2xl"
+              >
+                <span className="text-sm font-medium text-[#034f72]">
+                  {user.name}
+                </span>
+                <button
+                  onClick={() => handleRemove(user._id)}
+                  className="text-xs font-semibold text-red-400 bg-red-50 border border-red-200 px-3 py-1 rounded-2xl hover:bg-red-100 transition-colors duration-150"
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
