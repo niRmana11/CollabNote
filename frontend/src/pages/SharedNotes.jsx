@@ -30,27 +30,32 @@ function SharedNotes() {
         <p className="text-gray-500">No notes have been shared with you yet.</p>
       )}
 
-      <div className="space-y-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {notes.map((note) => (
-          <div key={note._id} className="p-4 bg-white rounded-lg shadow border">
-            <h3 className="text-lg font-semibold mb-1">{note.title}</h3>
+          <div
+            key={note._id}
+            className="bg-blue-50 border border-blue-100 rounded-3xl p-5 shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col justify-between"
+          >
+            <h3 className="text-base font-bold text-[#034f72] mb-2 truncate">
+              {note.title}
+            </h3>
             <div
-              className="text-gray-600 mb-2 line-clamp-2"
+              className="text-gray-600 text-sm mb-3 line-clamp-2"
               dangerouslySetInnerHTML={{ __html: note.content }}
             />
             <p className="text-sm text-gray-500">
-              <span className="font-medium">Owner:</span>{" "}
+              <span className="font-medium text-gray-500">Owner:</span>{" "}
               {note.owner?.name || "Unknown"}
             </p>
-            <p className="text-sm text-gray-400 mt-1">
+            <p className="text-xs text-gray-400 mt-1">
               Last updated: {formatDate(note.updatedAt)}
             </p>
 
-            <div className="flex gap-3 mt-4">
+            <div className="flex flex-wrap gap-2 mt-4">
               {/* Collaborators can edit but not delete or manage collaborators */}
               <button
                 onClick={() => navigate(`/edit-note/${note._id}`)}
-                className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                className="px-4 py-1.5 text-xs font-semibold bg-yellow-100 text-yellow-700 rounded-2xl hover:bg-yellow-200 transition-colors duration-150"
               >
                 Edit
               </button>
