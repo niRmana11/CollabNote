@@ -27,9 +27,9 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="flex items-center justify-center h-screen bg-blue-200">
       <form
-        className="bg-white p-8 rounded shadow-md w-96"
+        className="bg-blue-100 p-8 rounded-3xl shadow-md w-96"
         onSubmit={handleSubmit}
       >
         <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
@@ -39,7 +39,7 @@ function Login() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 mb-4 border rounded"
+          className="w-full p-3 mb-4 border border-blue-200 rounded-3xl focus:outline-none focus:border-blue-200 focus:ring-2 focus:ring-blue-200"
           required
         />
         <input
@@ -47,17 +47,17 @@ function Login() {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-4 border rounded"
+          className="w-full p-3 mb-4 border border-blue-200 rounded-3xl focus:outline-none focus:border-blue-200 focus:ring-2 focus:ring-blue-200"
           required
         />
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+          className="w-full bg-[#0286c3] text-white font-bold p-2 py-3 rounded-3xl hover:bg-[#0377ad]"
         >
           Login
         </button>
 
-        <p className="text-center mt-4 text-sm">
+        <p className="text-center mt-4 mb-4 text-sm">
           Don't have an account?{" "}
           <Link to="/register" className="text-blue-600 font-semibold">
             Register

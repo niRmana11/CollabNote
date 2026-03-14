@@ -24,19 +24,20 @@ function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="flex items-center justify-center h-screen bg-blue-200">
       <form
-        className="bg-white p-8 rounded shadow-md w-96"
+        className="bg-blue-100 p-8 rounded-3xl shadow-md w-96"
         onSubmit={handleSubmit}
       >
         <h1 className="text-2xl font-bold mb-6 text-center">Register</h1>
         {error && <p className="text-red-500 mb-4">{error}</p>}
+
         <input
           type="text"
           placeholder="Full Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full p-2 mb-4 border rounded"
+          className="w-full p-3 mb-4 border border-blue-200 rounded-3xl focus:outline-none focus:border-blue-200 focus:ring-2 focus:ring-blue-200"
           required
         />
         <input
@@ -44,7 +45,7 @@ function Register() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 mb-4 border rounded"
+          className="w-full p-3 mb-4 border border-blue-200 rounded-3xl focus:outline-none focus:border-blue-200 focus:ring-2 focus:ring-blue-200"
           required
         />
         <input
@@ -52,16 +53,16 @@ function Register() {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-4 border rounded"
+          className="w-full p-3 mb-4 border border-blue-200 rounded-3xl focus:outline-none focus:border-blue-200 focus:ring-2 focus:ring-blue-200"
           required
         />
         <button
           type="submit"
-          className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700"
+          className="w-full bg-[#02c39a] text-white font-bold p-2 py-3 rounded-3xl hover:bg-[#02b48d]"
         >
           Register
         </button>
-        <p className="text-center mt-4 text-sm">
+        <p className="text-center mt-4 text-sm mb-4">
           Already have an account?{" "}
           <Link to="/login" className="text-blue-600 font-semibold">
             Login
