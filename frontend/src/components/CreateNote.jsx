@@ -35,13 +35,13 @@ function CreateNote({ refreshNotes }) {
         required
       />
 
-      <div className="rounded-2xl overflow-hidden border border-blue-200">
+      <div className="rounded-2xl border border-blue-200">
         <ReactQuill
           theme="snow"
           placeholder="Add the note content here..."
           value={content}
           onChange={setContent}
-          className="h-24 rounded-2xl text-sm"
+          className="text-sm"
         />
       </div>
 

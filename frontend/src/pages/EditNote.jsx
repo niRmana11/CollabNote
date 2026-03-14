@@ -62,11 +62,11 @@ function EditNote() {
             onChange={(e) => setTitle(e.target.value)}
           />
 
-          <div className="rounded-2xl overflow-hidden border border-blue-200 mb-10">
+          <div className="rounded-2xl border border-blue-200 mb-5">
             <ReactQuill
               value={content}
               onChange={setContent}
-              className="h-36 text-sm"
+              className="text-sm"
             />
           </div>
 

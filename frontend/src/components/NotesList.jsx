@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getNotes, deleteNote } from "../api/notesApi";
 import { useNavigate } from "react-router-dom";
 
-// Decode JWT token to get logged-in user's _id
 const getLoggedInUserId = () => {
   try {
     const token = localStorage.getItem("token");
@@ -17,6 +16,7 @@ const getLoggedInUserId = () => {
 function NotesList() {
   const [notes, setNotes] = useState([]);
   const [search, setSearch] = useState("");
+  const [selectedNote, setSelectedNote] = useState(null);
   const navigate = useNavigate();
 
   const loggedInUserId = getLoggedInUserId();
@@ -47,6 +47,50 @@ function NotesList() {
 
   return (
     <div className="p-6">
+      {/* Modal */}
+      {selectedNote && (
+        <div
+          className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center px-4"
+          onClick={() => setSelectedNote(null)}
+        >
+          <div
+            className="bg-white rounded-3xl shadow-lg p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-xl font-bold text-[#034f72] mb-1">
+              {selectedNote.title}
+            </h2>
+            <p className="text-xs text-gray-400 mb-4">
+              Last updated: {formatDate(selectedNote.updatedAt)}
+            </p>
+            <div
+              className="text-gray-600 text-sm leading-relaxed prose max-w-none"
+              dangerouslySetInnerHTML={{ __html: selectedNote.content }}
+            />
+            <div className="mt-6 pt-4 border-t border-blue-100">
+              <p className="text-xs text-gray-500">
+                <span className="font-medium text-gray-600">Owner:</span>{" "}
+                {selectedNote.owner?.name || "Unknown"}
+              </p>
+              <p className="text-xs text-gray-500 mt-1">
+                <span className="font-medium text-gray-600">
+                  Collaborators:
+                </span>{" "}
+                {selectedNote.collaborators?.length > 0
+                  ? selectedNote.collaborators.map((c) => c.name).join(", ")
+                  : "None"}
+              </p>
+            </div>
+            <button
+              onClick={() => setSelectedNote(null)}
+              className="mt-5 text-sm text-[#0286c3] font-medium hover:text-[#034f72] transition-colors duration-150"
+            >
+              ✕ Close
+            </button>
+          </div>
+        </div>
+      )}
+
       <h2 className="text-2xl font-bold text-[#034f72] mb-6">Your Notes</h2>
 
       <div className="flex mb-6 gap-2">
@@ -76,7 +120,8 @@ function NotesList() {
           return (
             <div
               key={note._id}
-              className="bg-blue-50 border border-blue-100 rounded-3xl p-5 shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col justify-between"
+              onClick={() => setSelectedNote(note)}
+              className="bg-blue-50 border border-blue-100 rounded-3xl p-5 shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col justify-between cursor-pointer"
             >
               <h3 className="text-base font-bold text-[#034f72] mb-2 truncate">
                 {note.title}
@@ -101,8 +146,10 @@ function NotesList() {
                 Last updated: {formatDate(note.updatedAt)}
               </p>
 
-              <div className="flex flex-wrap gap-2 mt-4">
-                {/* Visible to everyone */}
+              <div
+                className="flex flex-wrap gap-2 mt-4"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <button
                   onClick={() => navigate(`/edit-note/${note._id}`)}
                   className="px-4 py-1.5 text-xs font-semibold bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-2xl hover:bg-yellow-200 transition-colors duration-150"
@@ -110,7 +157,6 @@ function NotesList() {
                   Edit
                 </button>
 
-                {/* Owner only */}
                 {isOwner && (
                   <>
                     <button
