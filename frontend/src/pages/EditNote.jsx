@@ -23,7 +23,6 @@ function EditNote() {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-
     try {
       await updateNote(id, { title, content });
       navigate("/dashboard");
@@ -42,6 +41,15 @@ function EditNote() {
         onSubmit={handleUpdate}
         className="w-full max-w-3xl bg-white p-6 rounded shadow"
       >
+        {/* Back button */}
+        <button
+          type="button"
+          onClick={() => navigate("/dashboard")}
+          className="flex items-center gap-1 text-blue-500 hover:text-blue-700 mb-4"
+        >
+          ← Back to Dashboard
+        </button>
+
         <h2 className="text-xl font-bold mb-4">Edit Note</h2>
 
         <input

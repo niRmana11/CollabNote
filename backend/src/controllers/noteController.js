@@ -19,6 +19,7 @@ export const getNotes = async (req, res, next) => {
     const search = req.query.search;
 
     let filter = {
+      isDeleted: false,
       $or: [{ owner: req.user._id }, { collaborators: req.user._id }],
     };
 
@@ -27,8 +28,8 @@ export const getNotes = async (req, res, next) => {
     }
 
     const notes = await Note.find(filter)
-      .populate("owner", "name email")
-      .populate("collaborators", "name email")
+      .populate("owner", "_id name email") // Ensure owner is populated with _id
+      .populate("collaborators", "_id name email")
       .sort({ createdAt: -1 });
 
     res.json(notes);
@@ -57,8 +58,18 @@ export const updateNote = async (req, res, next) => {
 
 export const deletenote = async (req, res, next) => {
   try {
-    const note = await noteService.deleteNote(req.params.id);
-    res.json(note);
+    const note = await noteService.getNoteById(req.params.id);
+
+    if (!note) return res.status(404).json({ message: "Note not found" });
+
+    if (note.owner._id.toString() !== req.user._id.toString()) {
+      return res
+        .status(403)
+        .json({ message: "Only the owner can delete this note" });
+    }
+
+    const deleted = await noteService.deleteNote(req.params.id);
+    res.json(deleted);
   } catch (error) {
     next(error);
   }
