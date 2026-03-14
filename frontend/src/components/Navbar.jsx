@@ -13,7 +13,7 @@ function Navbar() {
 
   return (
     <div className="flex justify-between items-center bg-[#00a6fb] text-white px-6 py-5">
-      <h1 className="text-2xl font-bold">
+      <h1 className="text-3xl font-bold">
         Collab<span className="text-black">Note</span>
       </h1>
 
